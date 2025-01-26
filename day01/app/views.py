@@ -51,7 +51,6 @@ def categoryview(request):
     context = {'form':form,'cats':categories,'page':page}
     return render(request, 'category.html', context)
 
-@login_required
 def itemsview(request):
     items = Item.objects.all()
     paginator = Paginator(items, 3)
@@ -68,7 +67,6 @@ def itemsview(request):
     context = {'form':form,'items':items, 'page':page}
     return render(request, 'items.html', context)
 
-@login_required
 def itemview(request,pk):
     item = Item.objects.get(id=pk)
     return render(request,'item.html',{'item':item})
