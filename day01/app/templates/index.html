@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--Header-->
+<header class="item header">
+    <!-- Your other header content -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="text-homeimage">
+                    <div class="maintext-image" data-scrollreveal="enter top over 1.5s after 0.1s">
+                         The Fresh Mart
+                    </div>
+                    <div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.3s">
+                         Fresh Finds Everytime!!!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Your other header content -->
+</header>
+
+
+<!-- STEPS =============================-->
+<div class="item content">
+    <div class="container toparea">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="col editContent">
+                    <span class="numberstep"><i class="fa fa-shopping-cart"></i></span>
+                    <h3 class="numbertext">Choose our Products</h3>
+                    <p>
+                        Choosing our products means choosing quality you can trust. From farm-fresh produce to pantry essentials, every item is carefully selected to bring you the best at unbeatable prices. Shop with us for freshness, variety, and value!
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 editContent">
+                <div class="col">
+                    <span class="numberstep"><i class="fa fa-gift"></i></span>
+                    <h3 class="numbertext">Pay with PayPal or Card</h3>
+                    <p>
+                        We’ve made checkout easy and stress-free—just like shopping should be! Whether you prefer the security of PayPal or the convenience of your card, the choice is yours. No fuss, no worries, just seamless shopping.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 editContent">
+                <div class="col">
+                    <span class="numberstep"><i class="fa fa-info"></i></span>
+                    <h3 class="numbertext">Info</h3>
+                    <p>
+                        Your local spot for fresh veggies, fruits, dairy, snacks, and pantry staples. We offer quality products at great prices, making your grocery shopping easy and enjoyable.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LATEST ITEMS =============================-->
+<section class="item content">
+    <div class="container">
+        <div class="underlined-title">
+            <h1 class="text-center">BESTSELLERS OF THE WEEK</h1>
+            <div class="wow-hr type_short">
+                <span class="wow-hr-h">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="maxprooduct m-one">
+                    <div class="productbox m-one">                        
+                        <div class="product-details m-one">
+                            <h1 class="maxproduct p-name">Fresh Avocados</h1>
+                            <span class="price"><span class="edd_price">Rs.230.00</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="productbox m-two">
+                    <div class="product-details">
+                        <h1 class="maxproduct p-name">Fresh Oranges</h1>
+                        <span class="price"><span class="edd_price">Rs. 110.00</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="productbox m-three">
+                    <div class="product-details">
+                        <h1 class="maxproduct p-name">Fresh Strawberries</h1>
+                        <span class="price"><span class="edd_price">Rs.550</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BUTTON =============================-->
+<div class="item content">
+    <div class="container text-center">
+        <a href="{% url 'shop' %}" class="homebrowseitems">Browse All Products
+            <div class="homebrowseitemsicon">
+                <i class="fa fa-star fa-spin"></i>
+            </div>
+        </a>
+    </div>
+</div>
+<br/>
+
+<!-- TESTIMONIAL =============================-->
+<div class="item content">
+    <div class="container">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="slide-text">
+                <div>
+                    <h2><span class="uppercase">Awesome Support</span></h2>
+                    <img src="https://tse3.mm.bing.net/th?id=OIP.CS9msafUXrjavvqrOg-j9wHaE8&pid=Api&P=0&h=220" alt="Awesome Support">
+                    <p>
+                        The support... I can only say it's awesome. You make a product and you help people out any way you can even if it means that you have to log in on their dashboard to sort out any problems that customer might have. Simply Outstanding! - Customer Meena
+                    </p>
+                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

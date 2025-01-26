@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div>
+    <h1 class="shop-title">Welcome to Our Shop</h1>
+
+    <section class="shop-section">
+        {% for category in page %}
+            <h2 class="section-title">{{category.name}}</h2>       
+            <div class="products">
+                {% for item in items %}
+                    {% if item.category == category %}
+                        
+                        <div class="product">
+                            
+                            <image src="{{item.image.url}}" alt="{{item.name}}">
+                            <h3>{{item.name}}</h3>
+                            <p>{{item.description}}</p>
+                            <p><strong>{{item.price}}</strong></p>
+                            <button class="view-btn" data-item-id="{{item.id}}">view</a></button>
+                        
+                        </div>
+                    
+                    {% endif %}
+                {% endfor %}
+            </div>          
+        {% endfor %}
+
+        <div id="item-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <div id="modal-body">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination">
+            {% if page.has_previous %}
+                <button><a href="?page={{ page.previous_page_number }}">Previous</a></button>
+            {% endif %}
+            <label>{{ page.number }}</label>
+            {% if page.has_next %}
+                <button><a href="?page={{ page.next_page_number }}">Next</a></button>
+            {% endif %}
+        </div>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="item content management">
+	<div class="container">
+		<div class="col-md-11 col-md-offset-1">
+			<div class="slide-text">
+				<div>
+                    <h2>Update order{{form.instance.name}}</h2>
+                    <form method="POST" enctype="multipart/form-data" action="{% url 'update_order' form.instance.id %}?page={{ current_page }}">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" style="background-color: blue; color: white;">Update</button>
+                        <button type="cancel" style="background-color: green; color: white;">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<br>
+{% endblock %}

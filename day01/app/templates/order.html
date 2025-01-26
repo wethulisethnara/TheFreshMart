@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="item content management">
+	<div class="container">
+		<div class="col-md-12 col-md-offset-1">
+			<div class="slide-text order">
+				<div>
+                    <h2><span class="uppercase">Order Management</h2>
+                    <div class="form-container">
+                        <form method="POST">
+                            {% csrf_token %} 
+                            {{form}}
+                            <button class="form-button" type="submit">Save</button>
+                        </form>
+                    </div>
+
+
+                    <table border="1">
+                        <tr>
+                            <th>Id</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>Items</th>
+                            <th>Adress</th>
+                            <th>Mobile No</th>
+                            <th>Quantity</th>
+                            <th>Action</th>
+                        </tr>
+                        {% for order in page %}
+                        <tr>
+                            <td>{{order.id}}</td>
+                            <td>{{order.customer}}</td>
+                            <td>{{order.date}}</td>
+                            <td>{{order.item.all|join:", "}}</td>
+                            <td>{{order.address}}</td>
+                            <td>{{order.mobileno}}</td>
+                            <td>{{order.quantity}}</td>
+                            <td>
+                                <button class="update-btn" style="background-color: blue; color: white;"><a href="{% url 'update_order' order.id %}?page={{ page.number }}">Update</a></button>
+                                <button class="delete-btn" style="background-color: red; color: white;"><a href="{% url 'delete_confirm_order' order.id %}?page={{ page.number }}">Delete</a></button>
+                            </td>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    {% if page.has_previous %} 
+                        <button ><a href="?page={{ page.previous_page_number }}">Previous</a></button>
+                    {% endif %}
+
+                        <label>{{ page.number }}</label>
+
+                     {% if page.has_next %}
+                         <button ><a href="?page={{ page.next_page_number }}">Next</a></button>
+                     {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<br>
+<br>
+
+{% endblock %}

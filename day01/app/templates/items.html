@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<!-- TESTIMONIAL =============================-->
+<div class="item content management">
+	<div class="container">
+		<div class="col-md-11 col-md-offset-1">
+			<div class="slide-text item">
+				<div>
+          <h2><span class="uppercase">Item Management</span></h2> 
+          <div id="item-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <div id="modal-body">
+                </div>
+            </div>
+          </div>  
+          <div class="form-container">
+            <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div>     
+                <label for="id_name">Name:</label>
+                {{ form.name }}                                                   
+              </div>
+              <div>
+                <label for="id_description">Description:</label>
+                {{form.description}}
+              </div>
+                <div>
+                <label for="id_price">Price:</label>
+                {{ form.price }}
+              </div>
+              <div>
+                <label for="id_category">Category:</label>
+                {{ form.category }}
+              </div>
+              <div>
+                <label for="id_unit">Unit:</label>
+                {{ form.unit }}
+              </div>
+              <div>
+                <label for="id_image">Image:</label>
+                {{ form.image }}
+              </div>
+              <button class="form-button" type="submit">Add Item</button>
+            </form>
+          </div>
+          <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>Category</th>
+                <th>Unit</th>
+                <th>Action</th>
+            </tr>
+    
+            {% for item in page %}
+            <tr data-item-id="{{item.id }}">
+                <td>{{item.id}}</td>
+                <td class="name-cell">{{item.name}}</td>
+                <td class="description-cell">{{item.description}}</td>
+                <td class="price-cell">{{item.price}}</td>
+                <td class="image-cell"><img src="{{ item.image.url }}" alt="{{ item.name }}"></td>
+                <td class="catergory-cell">{{item.category}}</td>
+                <td class="unit-cell">{{item.unit}}</td>
+                <td>
+                  <button class="view-btn" data-item-id="{{item.id }}" style="background-color: green; color: white;">View</button>
+                  <button class="update-btn" data-item-id="{{item.id }}" style="background-color: blue; color: white;">Update</button>
+                  <button class="delete-btn" data-item-id="{{item.id }}" style="background-color: red; color: white;">Delete</button>
+              </td>              
+            </tr>
+            {% endfor %}
+          </table>         
+          {% if page.has_previous %} 
+            <button ><a href="?page={{ page.previous_page_number }}">Previous</a></button>
+           {% endif %}
+            <label>{{ page.number }}</label>
+          {% if page.has_next %}
+            <button ><a href="?page={{ page.next_page_number }}">Next</a></button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+
+{% endblock %}

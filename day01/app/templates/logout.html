@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="item content management">
+	<div class="container">
+		<div class="col-md-11 col-md-offset-1">
+			<div class="slide-text">
+				<div>
+                    <h2>Hey {{ user.username }}, do you want to log out?</h2>
+                    <!-- Logout Button -->
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-btn">Yes, Log me out</button>
+                    </form>
+                    <a href="{% url 'home' %}">Cancel</a> <!-- Link to cancel logout -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<br>
+<br>
+{% endblock %}

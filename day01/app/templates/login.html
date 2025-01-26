@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="item content management">
+	<div class="container">
+		<div class="col-md-11 col-md-offset-1">
+			<div class="slide-text">
+				<div>
+                    <h2>Administration Login</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Login</button>
+                        {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+                    {% endif %}
+                    </form>
+                    {% if error %}
+                        <p style="color: red;">{{ error }}</p>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<br>
+<br>
+{% endblock %}

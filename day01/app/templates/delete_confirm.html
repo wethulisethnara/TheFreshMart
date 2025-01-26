@@ -1,0 +1,13 @@
+<p>Are you sure you want to delete the following item?</p>
+<div class="single-item-image">    
+    <img src="{{item.image.url}}" >
+</div>
+<ul>   
+    <li><strong>Name:</strong> {{ item.name }}</li>
+    <li><strong>Price:</strong> LKR {{ item.price }}</li>
+    <li><strong>Description:</strong> {{ item.description }}</li>
+</ul>
+<form method="POST" action="{% url 'delete_item' item.id %}">
+    {% csrf_token %}
+    <button type="submit" style="background-color: red; color: white;">Confirm Delete</button>
+</form>

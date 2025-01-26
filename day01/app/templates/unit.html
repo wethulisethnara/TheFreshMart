@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- TESTIMONIAL =============================-->
+<div class="item content management">
+	<div class="container">
+		<div class="col-md-11 col-md-offset-1">
+			<div class="slide-text">
+				<div>
+                    <h2><span class="uppercase">Unit Management</span></h2>
+                    <div class="form-container">
+                        <form method="POST">
+                            {% csrf_token %} 
+                            {{form}} 
+                            <button class="form-button" type="submit">Save</button>
+                        </form>
+                    </div>
+
+                    <table border="1">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+
+                        {% for unit in page %}
+                        <tr>
+                            <td>{{unit.id}}</td>
+                            <td>{{unit.name}}</td>
+                        <td>
+                            <button class="update-btn" style="background-color: blue; color: white;"><a href="{% url 'update_unit' unit.id %}?page={{ page.number }}">Update</a></button>
+                            <button class="delete-btn" style="background-color: red; color: white;"><a href="{% url 'delete_confirm_unit' unit.id %}?page={{ page.number }}">Delete</a></button>
+                        </td>
+                    </tr>
+                        {% endfor %}
+                    </table>
+                    {% if page.has_previous %} 
+                        <button ><a href="?page={{ page.previous_page_number }}">Previous</a></button>
+                    {% endif %}
+                    <label>{{ page.number }}</label>
+                    {% if page.has_next %}
+                        <button ><a href="?page={{ page.next_page_number }}">Next</a></button>
+                    {% endif %}
+                </div>
+            </div>
+        </dive>
+    </div>
+</div>
+<br>
+<br>
+
+{% endblock %}

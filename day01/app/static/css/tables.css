@@ -1,0 +1,99 @@
+
+/* Form Styling */
+
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 12px;
+    font-size: 16px;
+}
+
+table th {
+    background-color: #28a745;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Button Styling */
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+button a {
+    color: white;
+    text-decoration: none;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Page Navigation */
+label {
+    font-size: 16px;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+}
+
+button a:hover {
+    text-decoration: underline;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 5px;
+}
+
+/* Responsive Design */
+@media (max-width:1000px){ 
+    form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    form input[type="text"], 
+    form input[type="submit"] {
+        margin: 5px 0;
+    }
+}
+/* Existing styles */
+

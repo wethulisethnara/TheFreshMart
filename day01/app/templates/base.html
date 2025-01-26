@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
+    <title>{% block title %}The Fresh Mart{% endblock %}</title>
+    <link href=" {% static 'css/tables.css'%} " rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.webp' %}">   
+</head>
+<body>
+
+    <!-- HEADER =============================-->
+    <header class="item header margin-top-0">
+        <div class="wrapper">
+            <nav role="navigation" class="navbar navbar-white navbar-embossed navbar-lg navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
+                            <i class="fa fa-bars"></i>
+                            <span class="sr-only">Toggle navigation</span>
+                        </button>
+                        <a href="{% url 'home' %}" class="navbar-brand brand">
+                            <!-- Add your logo image here -->
+                            <img src="{% static 'favicon.ico' %}"  alt="The Fresh Mart Logo" class="navbar-logo">
+                            <!-- The text next to the logo -->
+                            <span class="navbar-text">The Fresh Mart</span>
+                        </a>
+                    </div>
+                    <div id="navbar-collapse-02" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="{% url 'home' %}">Home</a></li>
+                            <li><a href="{% url 'shop' %}">Shop</a></li>
+                            {% if user.is_authenticated %}
+                                <li><a href="{% url 'category' %}" title="Category Management">categories</a></li>
+                                <li><a href="{% url 'items' %}" title="Item Management">Items</a></li>
+                                <li><a href="{% url 'unit' %}" title="Unit Management">Units</a></li>
+                                <li><a href="{% url 'order' %}" title="Order Management">Orders</a></li>
+                                <li><a href="{% url 'supplier' %}" title="supplier Management">Suppliers</a></li>
+                                <li><a href="{% url 'logout' %}">Logout</a></li>
+                             {% else %}
+                                <li><a href="{% url 'login' %}">Login</a></li>
+                            {% endif %}
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
+                            <li><a href="http://127.0.0.1:8000/app/cart/">
+                                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                              </a>
+                            </li>                            
+                        </ul>
+                    </div>
+                </div>
+            </nav>            
+        </div>
+    </header>
+
+    <!-- CONTENT BLOCK =============================-->
+    {% block content %}
+    {% endblock %}
+
+    <!-- FOOTER =============================-->
+    <div class="footer text-center">
+        <div class="container">
+            <div class="row">
+                <p class="footernote">
+                    Connect with THE FRESHMART
+                </p>
+                <ul class="social-iconsfooter">
+                    <li><a href="tel:+94777047321"><i class="fa fa-phone"></i></a></li>
+                    <li><a href="https://www.facebook.com/profile.php?id=61554111826348" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="https://x.com/WSethnara0823" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                    <li>
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=wethulisethnara@gmail.com" target="_blank">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </li>                    
+                    <li><a href="https://www.pinterest.com/wethulisethnara/" target="_blank"><i class="fa fa-pinterest"></i></a></li>
+                    <li><a href="https://www.linkedin.com/in/wethuli-sethnara-85b8272b9/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                </ul>                
+                <p>
+                    &copy; 2025 The FreshMart<br/>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS =============================-->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/anim.js' %}"></script>
+    <script src="{% static 'js/loaditems.js' %}"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $('.fadeshop').hover(
+                function(){
+                    $(this).find('.captionshop').fadeIn(150);
+                },
+                function(){
+                    $(this).find('.captionshop').fadeOut(150);
+                }
+            );
+        });
+    </script>
+</body>
+</html>
