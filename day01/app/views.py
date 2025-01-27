@@ -51,6 +51,7 @@ def categoryview(request):
     context = {'form':form,'cats':categories,'page':page}
     return render(request, 'category.html', context)
 
+
 def itemsview(request):
     items = Item.objects.all()
     paginator = Paginator(items, 3)
@@ -67,6 +68,7 @@ def itemsview(request):
     context = {'form':form,'items':items, 'page':page}
     return render(request, 'items.html', context)
 
+
 def itemview(request,pk):
     item = Item.objects.get(id=pk)
     return render(request,'item.html',{'item':item})
@@ -81,6 +83,8 @@ def supplierview(request):
         form = SupplierForm(request.POST)
         if form.is_valid():
             form.save()
+            form = SupplierForm()
+            return redirect(f'/app/supplier/?page={page_number}')
     else:
         form = SupplierForm()
     context = {'form':form,'page':page}
@@ -88,17 +92,35 @@ def supplierview(request):
 
 @login_required
 def orderview(request):
-    orders = Order.objects.all()
-    paginator = Paginator(orders, 3)
-    page_number = request.GET.get('page')
-    page = paginator.get_page(page_number)
-    if request.method =='POST':
+    # Filter orders for customers and suppliers
+    customer_orders = Order.objects.filter(customer__isnull=False)
+    supplier_orders = Order.objects.filter(supplier__isnull=False)
+
+    # Pagination for customer orders
+    customer_paginator = Paginator(customer_orders, 3)
+    customer_page_number = request.GET.get('customer_page')
+    customer_page = customer_paginator.get_page(customer_page_number)
+
+    # Pagination for supplier orders
+    supplier_paginator = Paginator(supplier_orders, 3)
+    supplier_page_number = request.GET.get('supplier_page')
+    supplier_page = supplier_paginator.get_page(supplier_page_number)
+
+    # Handle form submission
+    if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
             form.save()
+            form = OrderForm()
+            return redirect('order')  # Redirect to the same page after saving
     else:
         form = OrderForm()
-    context = {'form':form,'page':page}
+
+    context = {
+        'form': form,
+        'customer_page': customer_page,
+        'supplier_page': supplier_page,
+    }
     return render(request, 'order.html', context)
 
 def homeview(request):
@@ -273,7 +295,7 @@ def delete_order(request, order_id):
         oder.delete()
     return redirect(f'/app/order/?page={current_page}')
 
-@login_required
+
 def contact_view(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -307,18 +329,35 @@ def contact_view(request):
 
     return render(request, 'contact.html',{'form':form})
 
-def product_buy(request,pk): 
-    items = Item.objects.get(id=pk) 
-    if request.method == 'POST': 
-        form = buy(request.POST, request.FILES)  
-        if form.is_valid(): 
-            form.save() 
-            form = buy() 
-            return redirect('shop')   
-    else: 
-        form = buy() 
-    context = {'form': form, 'item': items} 
+def product_buy(request, pk):
+    item = get_object_or_404(Item, id=pk)  # Ensure the item exists
+    if request.method == 'POST':
+        form = buy(request.POST)
+        if form.is_valid():
+            # Extract customer name and mobile number from the form
+            customer_name = form.cleaned_data['customer_name']
+            mobile = form.cleaned_data['mobile']
+
+            # Dynamically create or get a customer
+            customer, created = Customer.objects.get_or_create(
+                mobileno=mobile,
+                defaults={'name': customer_name},  # Use provided customer name
+            )
+
+            # Save the order
+            order = form.save(commit=False)
+            order.customer = customer  # Assign the customer to the order
+            order.save()  # Save the order first to get a primary key
+            
+            # Use the set() method to assign the item to the many-to-many field
+            order.item.set([item])  # Use a list or queryset to set items
+            
+            return redirect('shop')  # Redirect to the shop or success page
+    else:
+        form = buy()
+    context = {'form': form, 'item': item}
     return render(request, 'product_buy.html', context)
+
 
 def get_or_create_cart(request): 
     session_key = request.session.session_key 
@@ -356,3 +395,33 @@ def remove_from_cart(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id, cart__session_key=request.session.session_key) 
     cart_item.delete() 
     return redirect('cart_detail')
+
+@login_required
+def update_supplier(request, supplier_id):
+    supplier = Supplier.objects.get(id=supplier_id)
+    current_page = request.GET.get('page', 1)  # Default to page 1 if not provided
+    if request.method == 'POST':
+        form = SupplierForm(request.POST, instance=supplier)
+        if form.is_valid():
+            form.save()
+            # Redirect to the category view with the current page
+            return redirect(f'/app/supplier/?page={current_page}')
+        else:
+            return JsonResponse({'success': False, 'message': 'Invalid form data.'})
+    else:
+        form = SupplierForm(instance=supplier)
+    return render(request, 'update_supplier_form.html', {'form': form, 'current_page': current_page})
+
+@login_required
+def delete_confirm_supplier(request, supplier_id):
+    current_page = request.GET.get('page', 1)
+    supplier = Supplier.objects.get(id=supplier_id)
+    return render(request, 'delete_confirm_supplier.html',  {'supplier': supplier, 'current_page': current_page})
+
+@login_required
+def delete_supplier(request, supplier_id):
+    supplier= Supplier.objects.get(id=supplier_id)
+    current_page = request.GET.get('page', 1)
+    if request.method == 'POST':
+        supplier.delete()
+    return redirect(f'/app/supplier/?page={current_page}')

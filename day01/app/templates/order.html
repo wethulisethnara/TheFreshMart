@@ -3,64 +3,110 @@
 {% block content %}
 
 <div class="item content management">
-	<div class="container">
-		<div class="col-md-12 col-md-offset-1">
-			<div class="slide-text order">
-				<div>
+    <div class="container">
+        <div class="col-md-12 col-md-offset-1">
+            <div class="slide-text order">
+                <div>
                     <h2><span class="uppercase">Order Management</h2>
                     <div class="form-container">
                         <form method="POST">
-                            {% csrf_token %} 
-                            {{form}}
+                            {% csrf_token %}
+                            {{ form }}
                             <button class="form-button" type="submit">Save</button>
                         </form>
                     </div>
 
-
+                    <!-- Customer Orders Table -->
+                    <h3>Customer Orders</h3>
                     <table border="1">
                         <tr>
                             <th>Id</th>
                             <th>Customer</th>
                             <th>Date</th>
                             <th>Items</th>
-                            <th>Adress</th>
+                            <th>Address</th>
                             <th>Mobile No</th>
                             <th>Quantity</th>
                             <th>Action</th>
                         </tr>
-                        {% for order in page %}
+                        {% for order in customer_page %}
                         <tr>
-                            <td>{{order.id}}</td>
-                            <td>{{order.customer}}</td>
-                            <td>{{order.date}}</td>
-                            <td>{{order.item.all|join:", "}}</td>
-                            <td>{{order.address}}</td>
-                            <td>{{order.mobileno}}</td>
-                            <td>{{order.quantity}}</td>
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.customer }}</td>
+                            <td>{{ order.date }}</td>
+                            <td class="truncate-text">{{ order.item.all|join:", " }}</td>
+                            <td class="truncate-text">{{ order.address }}</td>
+                            <td>{{ order.customer.mobileno }}</td>
+                            <td>{{ order.quantity }}</td>
                             <td>
-                                <button class="update-btn" style="background-color: blue; color: white;"><a href="{% url 'update_order' order.id %}?page={{ page.number }}">Update</a></button>
-                                <button class="delete-btn" style="background-color: red; color: white;"><a href="{% url 'delete_confirm_order' order.id %}?page={{ page.number }}">Delete</a></button>
-                            </td>
+                                <button class="update-btn" style="background-color: blue; color: white;">
+                                    <a href="{% url 'update_order' order.id %}?page={{ customer_page.number }}">Update</a>
+                                </button>
+                                <button class="delete-btn" style="background-color: red; color: white;">
+                                    <a href="{% url 'delete_confirm_order' order.id %}?page={{ customer_page.number }}">Delete</a>
+                                </button>
                             </td>
                         </tr>
                         {% endfor %}
                     </table>
-                    {% if page.has_previous %} 
-                        <button ><a href="?page={{ page.previous_page_number }}">Previous</a></button>
+
+                    <!-- Pagination for Customer Orders -->
+                    {% if customer_page.has_previous %}
+                        <button><a href="?customer_page={{ customer_page.previous_page_number }}">Previous</a></button>
+                    {% endif %}
+                    <label>{{ customer_page.number }}</label>
+                    {% if customer_page.has_next %}
+                        <button><a href="?customer_page={{ customer_page.next_page_number }}">Next</a></button>
                     {% endif %}
 
-                        <label>{{ page.number }}</label>
+                    <!-- Supplier Orders Table -->
+                    <h3>Supplier Orders</h3>
+                    <table border="1">
+                        <tr>
+                            <th>Id</th>
+                            <th>Supplier</th>
+                            <th>Date</th>
+                            <th>Items</th>
+                            <th>Address</th>
+                            <th>Mobile No</th>
+                            <th>Quantity</th>
+                            <th>Action</th>
+                        </tr>
+                        {% for order in supplier_page %}
+                        <tr>
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.supplier }}</td>
+                            <td>{{ order.date }}</td>
+                            <td class="truncate-text">{{ order.item.all|join:", " }}</td>
+                            <td  class="truncate-text">{{ order.address }}</td>
+                            <td>{{ order.supplier.mobileno }}</td>
+                            <td>{{ order.quantity }}</td>
+                            <td>
+                                <button class="update-btn" style="background-color: blue; color: white;">
+                                    <a href="{% url 'update_order' order.id %}?page={{ supplier_page.number }}">Update</a>
+                                </button>
+                                <button class="delete-btn" style="background-color: red; color: white;">
+                                    <a href="{% url 'delete_confirm_order' order.id %}?page={{ supplier_page.number }}">Delete</a>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
 
-                     {% if page.has_next %}
-                         <button ><a href="?page={{ page.next_page_number }}">Next</a></button>
-                     {% endif %}
+                    <!-- Pagination for Supplier Orders -->
+                    {% if supplier_page.has_previous %}
+                        <button><a href="?supplier_page={{ supplier_page.previous_page_number }}">Previous</a></button>
+                    {% endif %}
+                    <label>{{ supplier_page.number }}</label>
+                    {% if supplier_page.has_next %}
+                        <button><a href="?supplier_page={{ supplier_page.next_page_number }}">Next</a></button>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
-
 </div>
-<br>
-<br>
+
+<br><br>
 
 {% endblock %}

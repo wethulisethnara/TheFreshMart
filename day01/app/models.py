@@ -27,23 +27,32 @@ class Item (models.Model):
     def __str__(self):
         return self.name
 
-class Supplier (models.Model):
-    name = models.CharField(max_length = 20)
-    mobileno = models.CharField(max_length = 10)
-    item = models.ManyToManyField(Item)
-   
+class Supplier(models.Model):
+    name = models.CharField(max_length=50)
+    mobileno = models.CharField(max_length=10)
+    items = models.ManyToManyField(Item, related_name="suppliers")  # A supplier provides specific items
+
     def __str__(self):
         return self.name
-    
-class Order (models.Model):
-    customer = models.CharField(max_length = 50)
+
+class Customer(models.Model):
+    name = models.CharField(max_length=50)
+    mobileno = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.name
+
+class Order(models.Model):
+    customer = models.ForeignKey(Customer, null=True, blank=True, on_delete=models.SET_NULL)
+    supplier = models.ForeignKey(Supplier, null=True, blank=True, on_delete=models.SET_NULL)
+    item = models.ManyToManyField(Item)  # Change from ForeignKey to ManyToManyField
+    quantity = models.PositiveIntegerField()
     date = models.DateField(auto_now_add=True)
-    quantity = models.IntegerField()
-    item = models.CharField(max_length=255)
     mobile = models.CharField(max_length=10)
     address = models.TextField()
+
     def __str__(self):
-        return self.customer
+        return f"Order on {self.date}"
     
 
 class Product(models.Model):

@@ -30,5 +30,7 @@ urlpatterns = [
     path('cart/add/<int:product_id>/', views.add_to_cart, name='add_to_cart'), 
     path('cart/update/<int:item_id>/', views.update_cart_item, name='update_cart_item'), 
     path('cart/remove/<int:item_id>/', views.remove_from_cart, name='remove_from_cart'),
-  
+    path('update-supplier/<int:supplier_id>/', views.update_supplier, name='update_supplier'),
+    path('delete-confirm-supplier/<int:supplier_id>/', views.delete_confirm_supplier, name='delete_confirm_supplier'),
+    path('delete-supplier/<int:supplier_id>/', views.delete_supplier, name='delete_supplier'),
 ]

@@ -25,7 +25,12 @@ class SupplierForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = ['supplier', 'item', 'quantity', 'mobile', 'address'] 
+        widgets = {
+            'address': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Enter suppier address'}),
+            'mobile': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Enter mobile number'}),
+            'quantity': forms.NumberInput(attrs={'class': 'input-field', 'placeholder': 'Enter quantity'}),
+        }
         
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=150, required=True, widget=forms.TextInput(attrs={'placeholder': 'Username'}))
@@ -64,14 +69,18 @@ class ContactForm(forms.Form):
         label='Message'
     )
 
-class buy(forms.ModelForm): 
-  class Meta: 
-        model = Order 
-        fields = ['customer', 'item', 'address', 'mobile', 'quantity'] 
-        widgets = { 
-            'customer': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Enter customer name'}), 
-            'item': forms.CheckboxSelectMultiple(attrs={'class': 'input-field'}), 
-            'address': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Enter delivery address'}), 
-            'mobile': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Enter mobile number'}), 
-            'quantity': forms.NumberInput(attrs={'class': 'input-field', 'placeholder': 'Enter quantity'}), 
+class buy(forms.ModelForm):
+    customer_name = forms.CharField(
+        max_length=50,
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Enter customer name'})
+    )
+
+    class Meta:
+        model = Order
+        fields = ['customer_name', 'address', 'mobile', 'quantity']  # Added 'customer_name'
+        widgets = {
+            'address': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Enter delivery address'}),
+            'mobile': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Enter mobile number'}),
+            'quantity': forms.NumberInput(attrs={'class': 'input-field', 'placeholder': 'Enter quantity'}),
         }

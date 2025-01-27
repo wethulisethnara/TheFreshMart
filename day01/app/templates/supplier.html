@@ -31,7 +31,10 @@
                             <td>{{supplier.name}}</td>
                             <td>{{supplier.mobileno}}</td>
                             <td>{{supplier.item.all|join:", "}}</td>
-                            <td><button class="button-update" style="margin-right: 10px;">Update</button><button class="button-delete">Delete</button></td>
+                            <td>
+                                <button class="update-btn" style="background-color: blue; color: white;"><a href="{% url 'update_supplier' supplier.id %}?page={{ page.number }}">Update</a></button>
+                                <button class="delete-btn" style="background-color: red; color: white;"><a href="{% url 'delete_confirm_supplier' supplier.id %}?page={{ page.number }}">Delete</a></button>
+                            </td>
                         </tr>
                         {% endfor %}
                     </table>

@@ -1,110 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Page</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start; /* Default: form starts from top */
-      height: 100vh;
-    }
+{% extends "base.html" %}
 
-    .form-container {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      padding: 20px 30px;
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-      margin-top: 150px; /* Pushes form further down */
-    }
+{% block content %}
 
-    .form-container input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
-    }
+<div class="item content management">
+	<div class="container">
+		<div class="col-md-11 col-md-offset-1">
+			<div class="slide-text">
+				<div>
+                    <h2>Buy item</strong></h2>
+                    <form method="post" enctype="multipart/form-data" class="form-container">
+                        {% csrf_token %}
 
-    .form-container button {
-      background-color: #28a745;
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 5px;
-      font-size: 18px;
-      cursor: pointer;
-      width: 100%;
-    }
+                        <!-- Customer Name field -->
+                        <div class="form-group">
+                            {{ form.customer_name.label_tag }}
+                            {{ form.customer_name }}
+                        </div>
 
-    .form-container button:hover {
-      background-color: #218838;
-    }
+                        <!-- Quantity field -->
+                        <div class="form-group">
+                            {{ form.quantity.label_tag }}
+                            {{ form.quantity }}
+                        </div>
 
-    .footer {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 14px;
-      width: 100%;
-    }
-  </style>
-</head>
-<body>
-  {% extends "base.html" %}
+                        <!-- Address field -->
+                        <div class="form-group">
+                            {{ form.address.label_tag }}
+                            {{ form.address }}
+                        </div>
 
-  {% block content %}
-  <form method="post" enctype="multipart/form-data" class="form-container"> 
-    {% csrf_token %} 
-     
-    <!-- Customer field --> 
-    <div class="form-group"> 
-        {{ form.customer.label_tag }} 
-        {{ form.customer }} 
-    </div> 
-     
-    <!-- Quantity field --> 
-    <div class="form-group"> 
-        {{ form.quantity.label_tag }} 
-        {{ form.quantity }} 
-    </div> 
-     
-    <!-- Address field --> 
-    <div class="form-group"> 
-        {{ form.address.label_tag }} 
-        {{ form.address }} 
-    </div> 
-     
-    <!-- Mobile field --> 
-    <div class="form-group"> 
-        {{ form.mobile.label_tag }} 
-        {{ form.mobile }} 
-    </div> 
+                        <!-- Mobile field -->
+                        <div class="form-group">
+                            {{ form.mobile.label_tag }}
+                            {{ form.mobile }}
+                        </div>
 
-    <!--item field-->
-    <div class="form-group">
-       {{ form.item.label_tag}}
-       {{ form.item }}
+                        <!-- Displaying item details -->
+                        <p>Buying item: <strong>{{ item.name }}</strong></p>
+
+                        <button type="submit" style="background-color: blue; color: white;">Buy Now</button>
+                        <button type="cancel" style="background-color: green; color: white;"><a href="{% url 'shop' %}">Cancel</a></button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Hidden input for the item --> 
-    <input type="hidden" name="item" value="{{ item.id }}"> 
-     
-    <div class="btn-action"> 
-       <a href="% url 'product_buy' item.id %"> 
-          <button type="submit" class="form-button">Buy Now</button>
-       </a>
-    </div> 
-  </form>
-  {% endblock %}
-</body>
-</html>
+</div>
+<br>
+{% endblock %}

@@ -95,5 +95,12 @@ button a:hover {
         margin: 5px 0;
     }
 }
+
+.truncate-text {
+    max-width: 200px; /* Set your desired width */
+    white-space: nowrap; /* Prevent wrapping to the next line */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Add dots at the end for overflow */
+}
 /* Existing styles */
 

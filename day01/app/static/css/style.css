@@ -27,6 +27,7 @@ a:hover {
 	padding:50px 0;
 	margin-top:50px;
 }
+
 .navbar-lg {
 	min-height:76px;
 }
@@ -1121,12 +1122,16 @@ p {
 /*contact form css*/
 .form-container {
     width: 70%; /* Adjust as needed */
-    margin: 100px auto; /* Center horizontally and add space from the top */
+    margin: 20px auto; /* Center horizontally and add space from the top */
     padding: 20px;
     border: 3px solid #ccc;
     border-radius: 10px; /* Rounded corners */
     background-color: #ffffff; /* Background color */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for a 3D effect */
+}
+
+.form-container {
+    margin: 20px auto; /* Center horizontally and add space from the top */
 }
 
 .form-container h2 {

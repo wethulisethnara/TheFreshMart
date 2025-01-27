@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="item content management">
+	<div class="container">
+		<div class="col-md-11 col-md-offset-1">
+			<div class="slide-text">
+				<div>
+
+                    <h2>Are you sure you want to delete the following Supplier?</h2>
+
+                    <ul>   
+                        <li><strong>Name:</strong> {{ supplier.name }}</li>
+                    </ul>
+                    <form method="POST" action="{% url 'delete_supplier' supplier.id %}?page={{ current_page }}">
+                        {% csrf_token %}
+                        <button type="submit" style="background-color: red; color: white;">Confirm Delete</button>
+                        <button style="background-color: green; color: white; "><a href="/app/supplier/?page={{ current_page }}" >Cancel</a> </button>                       
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<br>
+{% endblock %}
